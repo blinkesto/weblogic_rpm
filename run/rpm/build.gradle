@@ -64,6 +64,7 @@ task create(type: Exec){
         myProps.stage_dir = STAGE_DIR
         myProps.os = os
         myProps.setProperty("install_type", taskName)
+        myProps.setProperty("vm_name", vm_name + taskName)
         // myProps.install_type = "$taskName"
 
         from("$template_src"){

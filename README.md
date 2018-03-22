@@ -1,8 +1,8 @@
 # weblogic_rpm
 
 # TODO
-Destroy VMs
-opatch automation
+- Destroy VMs
+- opatch automation
 
 
 # Setup 
@@ -38,8 +38,8 @@ sys     0m1.330s
 
 What|Where
 ---|---
-Vagrant | build/os/wls/
-RPM|build/|
+Vagrant | build/$OS/$WLS/
+RPM|build/$OS/$WLS/fmw-*.rpm|
 
 ```bash
 #!/bin/env bash

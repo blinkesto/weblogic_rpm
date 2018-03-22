@@ -1,5 +1,10 @@
 # weblogic_rpm
 
+# TODO
+Destroy VMs
+opatch automation
+
+
 # Setup 
 
 ## VirtualBox
@@ -49,52 +54,85 @@ gradle :run:rpm:install -Pos=centos7 -Pwls=12.2.1.2.0
 
 # Output
 
+```bash
+STLC02NL0W6G3QP:weblogic_rpm kdooley$ cat centos7_12.1.3.0.0.sh 
+#!/usr/bin/env bash
+gradle :run:os:install -Pos=centos7 -Pwls=12.1.3.0.0 &&
+gradle :run:weblogic:install -Pos=centos7 -Pwls=12.1.3.0.0 &&
+gradle :run:rpm:create -Pos=centos7 -Pwls=12.1.3.0.0 &&
+gradle :run:os:halt -Pos=centos7 -Pwls=12.1.3.0.0 &&
+gradle :run:rpm:install -Pos=centos7 -Pwls=12.1.3.0.0STLC02NL0W6G3QP:weblogic_rpm kdooley$ 
+
+time ./centos7_12.1.3.0.0.sh 
+...
+real    9m14.413s
+user    0m7.839s
+sys     0m1.330s
+
+
+```
+
 What|Where
 ---|---
 Vagrant | build/os/wls/
 RPM|build/|
 
 ```bash
-gradle :run:os:install -Pos=centos7 -Pwls=12.1.3.0.0
-gradle :run:weblogic:install -Pos=centos7 -Pwls=12.1.3.0.0
-gradle :run:os:halt -Pos=centos7 -Pwls=12.1.3.0.0
+#!/bin/env bash
+gradle :run:os:install -Pos=centos7 -Pwls=12.1.3.0.0 && \n
+gradle :run:weblogic:install -Pos=centos7 -Pwls=12.1.3.0.0 && \n
+gradle :run:rpm:create -Pos=centos7 -Pwls=12.1.3.0.0 && \n
+gradle :run:os:halt -Pos=centos7 -Pwls=12.1.3.0.0 && \n
+gradle :run:rpm:install -Pos=centos7 -Pwls=12.1.3.0.0
 
+#!/bin/env bash
 gradle :run:os:install -Pos=centos7 -Pwls=12.2.1.2.0
 gradle :run:weblogic:install -Pos=centos7 -Pwls=12.2.1.2.0
 gradle :run:os:halt -Pos=centos7 -Pwls=12.2.1.2.0
 
+#!/bin/env bash
 gradle :run:os:install -Pos=centos7 -Pwls=12.2.1.3.0
 gradle :run:weblogic:install -Pos=centos7 -Pwls=12.2.1.3.0
 gradle :run:os:halt -Pos=centos7 -Pwls=12.2.1.3.0
 
+#!/bin/env bash
 gradle :run:os:install -Pos=centos6 -Pwls=12.1.3.0.0
 gradle :run:weblogic:install -Pos=centos6 -Pwls=12.1.3.0.0
 gradle :run:os:halt -Pos=centos6 -Pwls=12.1.3.0.0
 
+#!/bin/env bash
 gradle :run:os:install -Pos=centos6 -Pwls=12.2.1.2.0
 gradle :run:weblogic:install -Pos=centos6 -Pwls=12.2.1.2.0
 gradle :run:os:halt -Pos=centos6 -Pwls=12.2.1.2.0
 
+#!/bin/env bash
 gradle :run:os:install -Pos=centos6 -Pwls=12.2.1.3.0
 gradle :run:weblogic:install -Pos=centos6 -Pwls=12.2.1.3.0
 gradle :run:os:halt -Pos=centos6 -Pwls=12.2.1.3.0
 
-gradle :run:rpm:create: -Pos=centos7 -Pwls=12.1.3.0.0
-gradle :run:rpm:install: -Pos=centos7 -Pwls=12.1.3.0.0
+#!/bin/env bash
+gradle :run:rpm:create -Pos=centos7 -Pwls=12.1.3.0.0
+gradle :run:rpm:install -Pos=centos7 -Pwls=12.1.3.0.0
 
-gradle :run:rpm:create: -Pos=centos7 -Pwls=12.2.1.2.0
-gradle :run:rpm:install: -Pos=centos7 -Pwls=12.2.1.2.0
+#!/bin/env bash
+gradle :run:rpm:create -Pos=centos7 -Pwls=12.2.1.2.0
+gradle :run:rpm:install -Pos=centos7 -Pwls=12.2.1.2.0
 
-gradle :run:rpm:create: -Pos=centos7 -Pwls=12.2.1.3.0
-gradle :run:rpm:install: -Pos=centos7 -Pwls=12.2.1.3.0
+#!/bin/env bash
+gradle :run:rpm:create -Pos=centos7 -Pwls=12.2.1.3.0
+gradle :run:rpm:install -Pos=centos7 -Pwls=12.2.1.3.0
 
-gradle :run:rpm:create: -Pos=centos6 -Pwls=12.1.3.0.0
-gradle :run:rpm:install: -Pos=centos6 -Pwls=12.1.3.0.0
+#!/bin/env bash
+gradle :run:rpm:create -Pos=centos6 -Pwls=12.1.3.0.0
+gradle :run:rpm:install -Pos=centos6 -Pwls=12.1.3.0.0
 
-gradle :run:rpm:create: -Pos=centos6 -Pwls=12.2.1.2.0
-gradle :run:rpm:install: -Pos=centos6 -Pwls=12.2.1.2.0
+#!/bin/env bash
+gradle :run:rpm:create -Pos=centos6 -Pwls=12.2.1.2.0
+gradle :run:rpm:install -Pos=centos6 -Pwls=12.2.1.2.0
 
-gradle :run:rpm:create: -Pos=centos6 -Pwls=12.2.1.3.0
-gradle :run:rpm:install: -Pos=centos6 -Pwls=12.2.1.3.0
+#!/bin/env bash
+gradle :run:rpm:create -Pos=centos6 -Pwls=12.2.1.3.0
+gradle :run:rpm:install -Pos=centos6 -Pwls=12.2.1.3.0
+
 
 ```

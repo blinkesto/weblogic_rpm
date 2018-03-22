@@ -10,8 +10,8 @@ gradle_setup_list=[
 ]
 
 gradle_install_list=[
-    ':run:rpm:create:',
-    ':run:rpm:install:'
+    ':run:rpm:create',
+    ':run:rpm:install'
 ]
 
 for os in os_list:

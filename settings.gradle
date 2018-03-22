@@ -1,0 +1,9 @@
+rootProject.name = 'weblogic_rpm'
+
+include 'install'
+include 'run:os'
+include 'run:weblogic'
+include 'run:rpm'
+
+
+

@@ -1,0 +1,26 @@
+#!/bin/env bash
+
+FMW_INSTALLER=@fmw_installer@
+ORACLE_HOME=@oracle_home@
+STAGE_DIR=@stage_dir@
+
+sudo yum install -y rng-tools
+sudo service rngd start
+sudo chkconfig rngd on
+
+sudo groupadd oinstall
+sudo useradd -g oinstall oracle
+
+sudo mkdir -p /opt/oracle/oraInventory
+sudo chown -R oracle:oinstall /opt/oracle
+
+sudo -S -u oracle java -Xmx1024m  -jar $STAGE_DIR/$FMW_INSTALLER -silent -responseFile $STAGE_DIR/weblogic/Response.rsp -invPtrLoc $STAGE_DIR/weblogic/oraInst.loc
+
+sudo ln -s $ORACLE_HOME /opt/oracle/middleware
+
+sudo rm -rf /tmp/OraInstall*
+
+#sudo -S -u oracle /opt/oracle/middleware/oracle_common/common/bin/wlst.sh /mnt/files/weblogic/createdomain.wlst
+#sudo -S -u oracle mkdir /opt/oracle/domains/base_domain/servers/AdminServer/security
+#sudo -S -u oracle echo "username=weblogic" >> /opt/oracle/domains/base_domain/servers/AdminServer/security/boot.properties
+#sudo -S -u oracle echo "password=bread4all" >> /opt/oracle/domains/base_domain/servers/AdminServer/security/boot.properties

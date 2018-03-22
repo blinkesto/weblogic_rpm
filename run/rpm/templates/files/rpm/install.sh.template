@@ -1,0 +1,8 @@
+#!/bin/env bash
+
+REL=1
+
+sudo groupadd oinstall
+sudo useradd -g oinstall oracle
+
+sudo yum -y install /out/@os@/fmw-@version@-1.x86_64.rpm

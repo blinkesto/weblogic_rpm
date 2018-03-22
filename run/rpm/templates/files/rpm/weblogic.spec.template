@@ -1,0 +1,37 @@
+Summary: fmw
+Name: fmw
+Version: @version@
+Release: 1
+URL:     http://meinit.nl
+License: GPL
+BuildRoot: %{_tmppath}/%{name}-root
+Source0: fmw-@version@.tgz
+BuildArch: x86_64
+AutoReqProv: no
+
+%define debug_package %{nil}
+%define __jar_repack %{nil}
+
+%description
+A shell script.
+
+%prep
+%setup
+
+%build
+
+%install
+rm -rf ${RPM_BUILD_ROOT}
+mkdir -p $RPM_BUILD_ROOT/opt/oracle/product
+cp -R $RPM_BUILD_DIR/%{name}-%{version} $RPM_BUILD_ROOT/opt/oracle/product
+
+%clean
+# rm -rf ${RPM_BUILD_ROOT}
+
+%files
+%defattr(-,oracle,oinstall)
+/opt/oracle/product
+
+%changelog
+* Tue Jan 12 2010 Robert de Bock <robert@meinit.nl>
+- Uberscript!

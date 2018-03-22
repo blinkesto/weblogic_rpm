@@ -1,0 +1,106 @@
+apply plugin: 'idea'
+
+defaultTasks 'create'
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+def STAGE_DIR = "/mnt/files"
+def PROJECT_ROOT=rootProject.projectDir.toString()
+def vm_name = "weblogic-$os-$wls"
+
+task help(){
+    doLast {
+        println rootProject.projectDir
+    }
+}
+
+task install(type: Exec){
+    def prop_path = PROJECT_ROOT + "/properties/$os/"
+    def prop_file = "weblogic" + "$wls" + ".properties"
+    def myProps = new Properties()
+
+    file(prop_path + prop_file).withInputStream{
+        myProps.load(it);
+    }
+
+    dependsOn "copy_templates_rpm", "copy_binaries_rpm"
+    workingDir PROJECT_ROOT + "/build/$os/" + vm_name + "rpm"
+
+    //
+    commandLine 'vagrant', 'up', '--provision'
+}
+
+task create(type: Exec){
+    def prop_path = PROJECT_ROOT + "/properties/$os/"
+    def prop_file = "weblogic" + "$wls" + ".properties"
+    def myProps = new Properties()
+
+    file(prop_path + prop_file).withInputStream{
+        myProps.load(it);
+    }
+
+    // Update vm_name
+
+    dependsOn "copy_templates_jar", "copy_binaries_jar"
+    workingDir PROJECT_ROOT + "/build/$os/" + vm_name + "jar"
+
+    //
+    commandLine 'vagrant', 'provision'
+}
+
+['rpm','jar'].each { taskName ->
+    task "copy_templates_$taskName"(type: Copy){
+        def template_dest = PROJECT_ROOT + "/build/$os/" + vm_name + "$taskName"
+        def template_src = "templates"
+
+        def prop_path = PROJECT_ROOT + "/properties/$os/"
+        def prop_file = "weblogic" + "$wls" + ".properties"
+        def myProps = new Properties()
+
+        file(prop_path + prop_file).withInputStream{
+            myProps.load(it);
+        }
+
+        myProps.stage_dir = STAGE_DIR
+        myProps.os = os
+        myProps.setProperty("install_type", taskName)
+        // myProps.install_type = "$taskName"
+
+        from("$template_src"){
+            include '*.template'
+            filter(ReplaceTokens, tokens: myProps)
+            include 'files/rpm/*.template'
+            rename('(.*).template', '$1')
+        }
+        into "$template_dest"
+    }
+}
+
+['rpm','jar'].each { taskName ->
+    task "copy_binaries_$taskName" (type: Copy) {
+        def template_dest = PROJECT_ROOT + "/build/$os/" + vm_name  + "$taskName/files"
+        def prop_file = "weblogic" + "$wls" + ".properties"
+        def prop_path = PROJECT_ROOT + "/properties/$os/"
+        def myProps = new Properties()
+
+
+        file(prop_path + prop_file).withInputStream{
+            myProps.load(it);
+        }
+
+        from(PROJECT_ROOT + '/files'){
+            include "$myProps.jdk_rpm"
+            include "$myProps.fmw_installer"
+        }
+        into template_dest
+    }
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+#!/bin/env bash
+
+REL=1
+
+BUILD_USER=oracle
+RPMBUILD_DIR=/home/$BUILD_USER/rpmbuild
+FILES_DIR=/mnt/files/rpm
+
+mkdir -p $RPMBUILD_DIR/{SPECS,SOURCES}
+cp $FILES_DIR/weblogic.spec $RPMBUILD_DIR/SPECS/weblogic.spec
+cd /opt/oracle/product/
+tar czf $RPMBUILD_DIR/SOURCES/fmw-@version@.tgz fmw-@version@
+rpmbuild -bb $RPMBUILD_DIR/SPECS/weblogic.spec
+cp $RPMBUILD_DIR/RPMS/x86_64/fmw-@version@-1.x86_64.rpm /out/@os@/fmw-@version@-1.x86_64.rpm

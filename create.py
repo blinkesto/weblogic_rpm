@@ -6,32 +6,31 @@ wls_list=['12.1.3.0.0','12.2.1.2.0','12.2.1.3.0']
 gradle_setup_list=[
     ':run:os:install',
     ':run:weblogic:install',
+    ':run:rpm:create',
     ':run:os:halt'
 ]
 
 gradle_install_list=[
-    ':run:rpm:create',
     ':run:rpm:install'
 ]
 
-for os in os_list:
-    for wls in wls_list:
-        print "#!/bin/env bash"
-        for gradle in gradle_setup_list:
-            # subprocess.check_output(['gradle',':run:os:install', '-Pos=%s' % os, '-Pwls=' % wls])
-            os_opt =  "-Pos=%s" % os
-            wls_opt = "-Pwls=%s" % wls
-            # print ('gradle %s %s %s && \\n' % (gradle, os_opt, wls_opt))
-            print ('gradle %s %s %s' % (gradle, os_opt, wls_opt))
-        print ""
+cmd_list = []
 
 for os in os_list:
+    cmd_str =  ""
     for wls in wls_list:
-        print "#!/bin/env bash"
-        for gradle in gradle_install_list:
-            # subprocess.check_output(['gradle',':run:os:install', '-Pos=%s' % os, '-Pwls=' % wls])
+        cmd_list=[]
+        for gradle_setup in gradle_setup_list:
             os_opt =  "-Pos=%s" % os
             wls_opt = "-Pwls=%s" % wls
-            # print ('gradle %s %s %s && \\n' % (gradle, os_opt, wls_opt))
-            print ('gradle %s %s %s' % (gradle, os_opt, wls_opt))
-        print ""
+            cmd_list.append('gradle %s %s %s' % (gradle_setup, os_opt, wls_opt))
+            cmd_list.append("&&")
+        print ' '.join(cmd_list[:-1])
+
+        cmd_list=[]
+        for gradle_install in gradle_install_list:
+            os_opt =  "-Pos=%s" % os
+            wls_opt = "-Pwls=%s" % wls
+            cmd_list.append('gradle %s %s %s' % (gradle_install, os_opt, wls_opt))
+            cmd_list.append("&&")
+        print ' '.join(cmd_list[:-1])

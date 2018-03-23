@@ -1,15 +1,11 @@
 #!/bin/env bash
 
-REL=1
-
-RPMBUILD_DIR=~/rpmbuild
+BUILD_USER=oracle
+RPMBUILD_DIR=/home/$BUILD_USER/rpmbuild
+OUT_DIR=/out/centos7
+RPM_FILE=fmw-@version@-1.x86_64.rpm
 FILES_DIR=/mnt/files/rpm
 
 sudo yum install -y rpm-build
-mkdir -p $RPMBUILD_DIR/{SPECS,SOURCES}
-cp $FILES_DIR/weblogic.spec ~/rpmbuild/SPECS/weblogic.spec
-cd /opt/oracle/product/
-tar czf $RPMBUILD_DIR/SOURCES/fmw-@version@.tgz fmw-@version@
-cd $RPMBUILD_DIR/SPECS
-rpmbuild -bb weblogic.spec
-cp $RPMBUILD_DIR/RPMS/x86_64/fmw-@version@-1.x86_64.rpm /out/@os@/fmw-@version@-1.x86_64.rpm
+sudo -u oracle sh $FILES_DIR/buildrpm.sh
+cp $RPMBUILD_DIR/RPMS/x86_64/$RPM_FILE $OUT_DIR/$RPM_FILE

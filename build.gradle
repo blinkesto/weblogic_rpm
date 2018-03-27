@@ -82,8 +82,6 @@ subprojects {
             dependsOn "copy_serverspec_$taskName"
             workingDir PROJECT_ROOT + "/build/$os/weblogic-$os-$wls" + taskName
 
-            println "WORKING DIR: $workingDir"
-
             commandLine 'rake', 'spec'
         }
     }

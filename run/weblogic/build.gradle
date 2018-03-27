@@ -48,7 +48,3 @@ task copy_templates(type: Copy){
     }
     into "$template_dest"
 }
-
-task test_install(){
-    dependsOn "test_jar"
-}

@@ -1,0 +1,11 @@
+apply plugin: 'idea'
+
+import org.apache.tools.ant.filters.ReplaceTokens
+def myProps = new Properties()
+def STAGE_DIR = "/mnt/files"
+def PROJECT_ROOT=rootProject.projectDir.toString()
+def vm_name = "weblogic-$os-$wls"
+
+task install(){
+    dependsOn ":run:os:copy_serverspec_jar", "test_jar"
+}

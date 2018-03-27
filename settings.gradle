@@ -2,8 +2,10 @@ rootProject.name = 'weblogic_rpm'
 
 include 'install'
 include 'run:os'
+include 'run:os:test'
+
 include 'run:weblogic'
+include 'run:weblogic:test'
+
 include 'run:rpm'
-
-
-
+include 'run:rpm:test'

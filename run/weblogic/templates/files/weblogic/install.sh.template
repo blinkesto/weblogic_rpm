@@ -2,7 +2,7 @@
 
 FMW_INSTALLER=@fmw_installer@
 ORACLE_HOME=@oracle_home@
-STAGE_DIR=@stage_dir@
+BINARIES_DIR=@stage_dir@
 JDK_RPM=@jdk_rpm@
 STAGE_DIR=/vagrant/files
 
@@ -16,10 +16,10 @@ sudo useradd -g oinstall oracle
 sudo mkdir -p /opt/oracle/oraInventory
 sudo chown -R oracle:oinstall /opt/oracle
 
-sudo rpm -Uvh $STAGE_DIR/$JDK_RPM
+sudo rpm -Uvh $BINARIES_DIR/$JDK_RPM
 sudo ln -s /usr/java/latest /opt/java
 
-sudo -S -u oracle java -Xmx1024m  -jar $STAGE_DIR/$FMW_INSTALLER -silent -responseFile $STAGE_DIR/weblogic/Response.rsp -invPtrLoc $STAGE_DIR/weblogic/oraInst.loc
+sudo -S -u oracle java -Xmx1024m  -jar $BINARIES_DIR/$FMW_INSTALLER -silent -responseFile $STAGE_DIR/weblogic/Response.rsp -invPtrLoc $STAGE_DIR/weblogic/oraInst.loc
 
 sudo ln -s $ORACLE_HOME /opt/oracle/middleware
 

@@ -22,7 +22,7 @@ task install(type: Exec){
     // Update vm_name
     myProps.install_type = "jar"
     myProps.setProperty("vm_name", vm_name + myProps.install_type )
-    dependsOn "copy_templates", "copy_binaries_jar"
+    dependsOn "copy_templates"
     workingDir PROJECT_ROOT + "/build/$os/" + myProps.vm_name
 
     //

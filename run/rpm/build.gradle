@@ -29,11 +29,18 @@ task install(type: Exec){
         myProps.load(it);
     }
     myProps.setProperty("wls", wls)
-    dependsOn "copy_templates_rpm", "copy_binaries_rpm", "copy_serverspec_rpm"
+    dependsOn "copy_rpm","copy_templates_rpm", "copy_serverspec_rpm"
     workingDir PROJECT_ROOT + "/build/$os/" + vm_name + "rpm"
 
     //
     commandLine 'vagrant', 'up', '--provision'
+}
+
+task halt(type: Exec){
+    workingDir PROJECT_ROOT + "/build/$os/" + vm_name + "rpm"
+
+    //
+    commandLine 'vagrant', 'halt'
 }
 
 task create(type: Exec){
@@ -47,7 +54,8 @@ task create(type: Exec){
     myProps.setProperty("wls", wls)
     // Update vm_name
 
-    dependsOn "copy_templates_jar", "copy_binaries_jar", "copy_serverspec_jar"
+    // dependsOn "copy_templates_jar", "copy_binaries_jar", "copy_serverspec_jar"
+    dependsOn "copy_templates_jar", "copy_serverspec_jar"
     workingDir PROJECT_ROOT + "/build/$os/" + vm_name + "jar"
 
     //

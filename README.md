@@ -67,62 +67,15 @@ RPM|build/$OS/$WLS/fmw-*.rpm|
 
 # Sample run files (TODO)
 ```bash
-#!/bin/env bash
-gradle :run:os:install -Pos=centos7 -Pwls=12.1.3.0.0 && gradle :run:weblogic:install -Pos=centos7 -Pwls=12.1.3.0.0 && gradle :run:rpm:create -Pos=centos7 -Pwls=12.1.3.0.0 && gradle :run:os:halt -Pos=centos7 -Pwls=12.1.3.0.0  
-gradle :run:rpm:install -Pos=centos7 -Pwls=12.1.3.0.0
-
-
-
-
-
-#!/bin/env bash
-gradle :run:os:install -Pos=centos7 -Pwls=12.2.1.2.0 gradle :run:weblogic:install -Pos=centos7 -Pwls=12.2.1.2.0 gradle :run:os:halt -Pos=centos7 -Pwls=12.2.1.2.0
-
-#!/bin/env bash
-gradle :run:os:install -Pos=centos7 -Pwls=12.2.1.3.0
-gradle :run:os:test    -Pos=centos7 -Pwls=12.1.3.0.0
-
-gradle :run:weblogic:install -Pos=centos7 -Pwls=12.2.1.3.0
-gradle :run:os:halt -Pos=centos7 -Pwls=12.2.1.3.0
-
-#!/bin/env bash
 gradle :run:os:install -Pos=centos6 -Pwls=12.1.3.0.0
+gradle :run:os:test_install -Pos=centos6 -Pwls=12.1.3.0.0
+  
 gradle :run:weblogic:install -Pos=centos6 -Pwls=12.1.3.0.0
-gradle :run:os:halt -Pos=centos6 -Pwls=12.1.3.0.0
+gradle :run:weblogic:test_install -Pos=centos6 -Pwls=12.1.3.0.0
 
-#!/bin/env bash
-gradle :run:os:install -Pos=centos6 -Pwls=12.2.1.2.0
-gradle :run:weblogic:install -Pos=centos6 -Pwls=12.2.1.2.0
-gradle :run:os:halt -Pos=centos6 -Pwls=12.2.1.2.0
-
-#!/bin/env bash
-gradle :run:os:install -Pos=centos6 -Pwls=12.2.1.3.0
-gradle :run:weblogic:install -Pos=centos6 -Pwls=12.2.1.3.0
-gradle :run:os:halt -Pos=centos6 -Pwls=12.2.1.3.0
-
-#!/bin/env bash
-gradle :run:rpm:create -Pos=centos7 -Pwls=12.1.3.0.0
-gradle :run:rpm:install -Pos=centos7 -Pwls=12.1.3.0.0
-
-#!/bin/env bash
-gradle :run:rpm:create -Pos=centos7 -Pwls=12.2.1.2.0
-gradle :run:rpm:install -Pos=centos7 -Pwls=12.2.1.2.0
-
-#!/bin/env bash
-gradle :run:rpm:create -Pos=centos7 -Pwls=12.2.1.3.0
-gradle :run:rpm:install -Pos=centos7 -Pwls=12.2.1.3.0
-
-#!/bin/env bash
 gradle :run:rpm:create -Pos=centos6 -Pwls=12.1.3.0.0
+gradle :run:rpm:test_create -Pos=centos6 -Pwls=12.1.3.0.0
+
 gradle :run:rpm:install -Pos=centos6 -Pwls=12.1.3.0.0
-
-#!/bin/env bash
-gradle :run:rpm:create -Pos=centos6 -Pwls=12.2.1.2.0
-gradle :run:rpm:install -Pos=centos6 -Pwls=12.2.1.2.0
-
-#!/bin/env bash
-gradle :run:rpm:create -Pos=centos6 -Pwls=12.2.1.3.0
-gradle :run:rpm:install -Pos=centos6 -Pwls=12.2.1.3.0
-
-
+gradle :run:rpm:test_install -Pos=centos6 -Pwls=12.1.3.0.0
 ```

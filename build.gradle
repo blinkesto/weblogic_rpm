@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
     id 'org.jetbrains.intellij' version '0.3.0'
 }
@@ -30,5 +32,78 @@ patchPluginXml {
 
 subprojects {
     version = '1.0'
-}
+    def PROJECT_ROOT = rootProject.projectDir.toString()
 
+    ['rpm', 'jar'].each { taskName ->
+        taskName
+        task "copy_serverspec_$taskName"(type: Copy) {
+            def template_src = "templates/serverspec"
+            def myProps = new Properties()
+
+            def prop_path = PROJECT_ROOT + "/properties/$os/"
+            def prop_file = "weblogic" + "$wls" + ".properties"
+
+            def vm_name = "weblogic-$os-$wls" + taskName
+
+            file(prop_path + prop_file).withInputStream {
+                myProps.load(it);
+            }
+
+            myProps.os = os
+            myProps.wls = wls
+            myProps.vm_name = vm_name
+
+            if (taskName == "jar")
+                myProps.task_name = "create"
+            else
+                myProps.task_name = "install"
+
+            def template_dest = PROJECT_ROOT + "/build/$os/" + vm_name
+            from(template_src) {
+                include '*.template'
+                include 'spec/*.template'
+                include 'spec/default/*.template'
+                filter(ReplaceTokens, tokens: myProps)
+                rename('(.*).template', '$1')
+            }
+            into template_dest
+        }
+    }
+    ['rpm', 'jar'].each { taskName ->
+        task "test_$taskName"(type: Exec) {
+            def prop_file = "weblogic" + "$wls" + ".properties"
+            def prop_path = PROJECT_ROOT + "/properties/$os/"
+            def myProps = new Properties()
+
+
+            file(prop_path + prop_file).withInputStream {
+                myProps.load(it);
+            }
+            dependsOn "copy_serverspec_$taskName"
+            workingDir PROJECT_ROOT + "/build/$os/weblogic-$os-$wls" + taskName
+
+            println "WORKING DIR: $workingDir"
+
+            commandLine 'rake', 'spec'
+        }
+    }
+
+    ['rpm', 'jar'].each { taskName ->
+        task "copy_binaries_$taskName"(type: Copy) {
+            def prop_file = "weblogic" + "$wls" + ".properties"
+            def prop_path = PROJECT_ROOT + "/properties/$os/"
+            def myProps = new Properties()
+
+
+            file(prop_path + prop_file).withInputStream {
+                myProps.load(it);
+            }
+            def template_dest = PROJECT_ROOT + "/build/$os/weblogic-$os-$wls" + taskName + "/files"
+
+            from(PROJECT_ROOT + '/files') {
+                include "*"
+            }
+            into template_dest
+        }
+    }
+}

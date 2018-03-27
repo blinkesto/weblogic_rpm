@@ -1,0 +1,6 @@
+require 'spec_helper'
+
+describe file('/vagrant/fmw-@wls@-1.x86_64.rpm'), :if => os[:family] == 'redhat' do
+  it { should be_file }
+end
+

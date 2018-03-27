@@ -2,7 +2,7 @@ apply plugin: 'idea'
 
 import org.apache.tools.ant.filters.ReplaceTokens
 def myProps = new Properties()
-def STAGE_DIR = "/mnt/files"
+ //def STAGE_DIR = "/mnt/files"
 def PROJECT_ROOT=rootProject.projectDir.toString()
 def vm_name = "weblogic-$os-$wls"
 
@@ -23,8 +23,8 @@ task install(type: Exec){
     // Update vm_name
     myProps.install_type = "jar"
     myProps.setProperty("vm_name", vm_name + myProps.install_type )
-
-    dependsOn "copy_templates", "copy_binaries"
+    println "VM_NAME: " + myProps.vm_name
+    dependsOn "copy_templates", "copy_binaries_jar"
     workingDir PROJECT_ROOT + "/build/$os/" + myProps.vm_name
 
     //
@@ -62,7 +62,7 @@ task provision(type: Exec){
     myProps.install_type = "jar"
     myProps.setProperty("vm_name", vm_name + myProps.install_type )
 
-    dependsOn "copy_templates", "copy_binaries"
+    dependsOn "copy_templates"
     workingDir PROJECT_ROOT + "/build/$os/" + myProps.vm_name
 
     //
@@ -73,10 +73,10 @@ task copy_templates(type: Copy){
     def template_dest = PROJECT_ROOT + "/build/$os/" + myProps.vm_name
     def template_src = "templates"
 
-    myProps.stage_dir = STAGE_DIR
+    // myProps.stage_dir = STAGE_DIR
     myProps.os = os
+    myProps.project_root = PROJECT_ROOT
     println "Copy from $template_src into $template_dest"
-    println myProps
 
     from("$template_src"){
         include '*.template'
@@ -87,12 +87,10 @@ task copy_templates(type: Copy){
     into "$template_dest"
 }
 
-task copy_binaries(type: Copy){
-    def template_dest = PROJECT_ROOT + "/build/$os/" + myProps.vm_name + "/files"
-
-    from(PROJECT_ROOT + '/files'){
-        include "$myProps.jdk_rpm"
-        include "$myProps.fmw_installer"
-    }
-    into template_dest
+task test (){
+    dependsOn test_jar
 }
+
+
+
+

@@ -1,0 +1,5 @@
+require 'spec_helper'
+
+describe command('ls -al @stage_dir@') do
+    its(:stdout) { should match /@fmw_installer@/ }
+end

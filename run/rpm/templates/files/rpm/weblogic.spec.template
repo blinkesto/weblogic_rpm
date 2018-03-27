@@ -1,11 +1,11 @@
 Summary: fmw
 Name: fmw
-Version: @version@
+Version: @wls@
 Release: 1
-URL:     http://meinit.nl
+URL:     http://panerabread.com
 License: GPL
 BuildRoot: %{_tmppath}/%{name}-root
-Source0: fmw-@version@.tgz
+Source0: fmw-@wls@.tgz
 BuildArch: x86_64
 AutoReqProv: no
 
@@ -13,7 +13,7 @@ AutoReqProv: no
 %define __jar_repack %{nil}
 
 %description
-A shell script.
+An rpm created by Panera Bread
 
 %prep
 %setup
@@ -33,5 +33,5 @@ cp -R $RPM_BUILD_DIR/%{name}-%{version} $RPM_BUILD_ROOT/opt/oracle/product
 /opt/oracle/product
 
 %changelog
-* Tue Jan 12 2010 Robert de Bock <robert@meinit.nl>
-- Uberscript!
+* Fri Mar 23 2018 Koy Dooley <koy.dooley@panerabread.com>
+- Initial

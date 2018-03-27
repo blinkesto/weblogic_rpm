@@ -4,7 +4,7 @@ FMW_INSTALLER=@fmw_installer@
 ORACLE_HOME=@oracle_home@
 STAGE_DIR=@stage_dir@
 JDK_RPM=@jdk_rpm@
-STAGE_DIR=@stage_dir@
+STAGE_DIR=/vagrant/files
 
 sudo yum install -y rng-tools
 sudo service rngd start

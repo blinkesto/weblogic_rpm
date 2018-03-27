@@ -10,4 +10,4 @@ sudo useradd -g oinstall oracle
 sudo rpm -Uvh $STAGE_DIR/$JDK_RPM
 sudo ln -s /usr/java/latest /opt/java
 
-sudo yum -y install /out/@os@/fmw-@version@-1.x86_64.rpm
+sudo yum -y install /vagrant/fmw-@wls@-1.x86_64.rpm

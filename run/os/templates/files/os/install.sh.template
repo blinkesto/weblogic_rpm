@@ -1,7 +1,2 @@
 #!/bin/env bash
 
-#JDK_RPM=@jdk_rpm@
-#STAGE_DIR=@stage_dir@
-
-#sudo rpm -Uvh $STAGE_DIR/$JDK_RPM
-#sudo ln -s /usr/java/latest /opt/java

@@ -20,7 +20,6 @@ An rpm created by Panera Bread
 %setup
 
 %build
-#mkdir -p $RPM_BUILD_ROOT/opt/oracle/product/%{name}-%{version}
 ln -s $RPM_BUILD_ROOT/opt/oracle/product/%{name}-%{version} /opt/oracle/middleware
 
 %install

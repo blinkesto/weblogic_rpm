@@ -10,6 +10,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.require_version ">= 1.7.4"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    # config.vm.define VM_NAME
     config.ssh.insert_key = false
     config.vm.box = VM_BOX
 
@@ -28,6 +29,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.customize [ "modifyvm", :id, "--nic2", "hostonly", "--hostonlyadapter2", "vboxnet1"]
         vb.customize [ "modifyvm", :id, "--memory", 4096]
         vb.customize [ "modifyvm", :id, "--cpus", 2]
+        vb.customize [ "modifyvm", :id, "--groups", "/weblogic_rpm"]
+
     end
 
     config.vm.provision "shell", path: "files/os/install.sh"

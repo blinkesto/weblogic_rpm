@@ -41,5 +41,3 @@ ln -sf /opt/oracle/product/%{name}-%{version} %{buildroot}/opt/oracle/middleware
 %changelog
 * Fri Mar 23 2018 Koy Dooley <koy.dooley@panerabread.com>
 - Initial
-
-

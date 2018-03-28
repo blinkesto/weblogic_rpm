@@ -79,12 +79,12 @@ RPM|build/$OS/$WLS/fmw-*.rpm|
 
 ```bash
 # Install OS
-gradle :run:os:install -Pos=centos7 -Pwls=12.1.3.0.0 
-gradle :run:os:test:install -Pos=centos7 -Pwls=12.1.3.0.0 
+gradle :run:os:install -Pos=centos6 -Pwls=12.1.3.0.0 
+gradle :run:os:test:install -Pos=centos6 -Pwls=12.1.3.0.0 
 
 # Install Weblogic
-gradle :run:weblogic:install -Pos=centos7 -Pwls=12.1.3.0.0
-gradle :run:weblogic:test:install -Pos=centos7 -Pwls=12.1.3.0.0
+gradle :run:weblogic:install -Pos=centos6 -Pwls=12.1.3.0.0
+gradle :run:weblogic:test:install -Pos=centos6 -Pwls=12.1.3.0.0
 
 # Create RPM
 gradle :run:rpm:create -Pos=centos7 -Pwls=12.1.3.0.0

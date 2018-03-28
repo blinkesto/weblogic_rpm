@@ -16,7 +16,7 @@
 - Now we can create RPMs for both OS versions and 3 WLS versions
 - MW_HOME is now /opt/oracle/product/fmw-version.  /opt/oracle/middleware is a symlink to that.
 - Now we can upgrade/rollback by updating the symlink.
-- JDK is installed using standard Oracle rpms.  I'm not building RPMS that already exist just to have certs preinstalled, that's riduclous.
+- JDK is installed using standard Oracle rpms.  I'm not building RPMS that already exist just to install certs, that's ridiculous.
 - /opt/oracle/java is a symlink to /usr/java/default
 - Now we can upgrade/rollback by updating symlink and export JAVA_HOME not grepping 10 files (which might change for every patch) to look for "/opt/oracle/java/1.8.0.161" which has caused so many issues.  
 - Removed JDK dependency from weblogic rpm.  What purpose did that serve?

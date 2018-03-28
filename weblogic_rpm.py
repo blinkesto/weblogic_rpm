@@ -21,6 +21,11 @@ gradle_install_list=[
 
 Config = ConfigParser.ConfigParser()
 
+def info(args):
+    print("Usage:")
+    print("./weblogic_rpm.py create  --os=%s --wls=%s" % (os_list, wls_list))
+
+
 def run(args):
     create(args)
     install(args)
@@ -71,15 +76,19 @@ def _get_parser():
     main_parser = argparse.ArgumentParser()
     subparsers = main_parser.add_subparsers(help='sub-command help')
 
-    parser_create = subparsers.add_parser('create', help='Webserver')
+    parser_create = subparsers.add_parser('create', help='Creates a RPM')
     parser_create.set_defaults(func=create)
     parser_create.add_argument("--os", help="centos6, centos7")
     parser_create.add_argument("--wls", help="12")
 
-    parser_install = subparsers.add_parser('install', help='Webserver')
+    parser_install = subparsers.add_parser('install', help='Installs the generated RPM')
     parser_install.set_defaults(func=install)
-    parser_install.add_argument("--os", help="centos6, centos7")
-    parser_install.add_argument("--wls", help="12")
+    parser_install.add_argument("--os", help="%s" % os_list)
+    parser_install.add_argument("--wls", help="%s" % wls_list)
+
+    parser_install = subparsers.add_parser('info', help='Shows usage info')
+    parser_install.set_defaults(func=info)
+
 
     return main_parser
 

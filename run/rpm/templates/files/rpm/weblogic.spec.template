@@ -24,6 +24,7 @@ An rpm created by Panera Bread
 rm -rf ${RPM_BUILD_ROOT}
 mkdir -p $RPM_BUILD_ROOT/opt/oracle/product
 cp -R $RPM_BUILD_DIR/%{name}-%{version} $RPM_BUILD_ROOT/opt/oracle/product
+ln -s /opt/oracle/middleware /opt/oracle/product/fmw-@wls@
 
 %clean
 # rm -rf ${RPM_BUILD_ROOT}

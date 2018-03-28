@@ -1,9 +1,7 @@
 # weblogic_rpm
 
 # TODO
-- Destroy VMs.  There are 12 VMs created, can't have them all running.
 - opatch automation
-- ServerSpec specs
 
 # Setup 
 
@@ -65,7 +63,20 @@ Vagrant | build/$OS/$WLS/
 RPM|build/$OS/$WLS/fmw-*.rpm|
 
 
-# Sample run files (TODO)
+# USAGE
+```bash
+# Create CentOS6 and Weblogic 12.2.1.3.0
+./weblogic_rpm.py create --os=centos6 --wls=12.2.1.3.0
+./weblogic_rpm.py install --os=centos6 --wls=12.2.1.3.0
+
+# Create CentOS7 and Weblogic 12.1.3.0.0
+./weblogic_rpm.py create --os=centos6 --wls=12.1.3.0.0
+./weblogic_rpm.py install --os=centos6 --wls=12.1.3.0.0
+
+```
+
+# Gradle commands sample
+
 ```bash
 # Install OS
 gradle :run:os:install -Pos=centos7 -Pwls=12.1.3.0.0 
@@ -86,23 +97,18 @@ gradle :run:os:halt -Pos=centos7 -Pwls=12.1.3.0.0
 gradle :run:rpm:install -Pos=centos7 -Pwls=12.1.3.0.0
 gradle :run:rpm:test:install -Pos=centos7 -Pwls=12.1.3.0.0
 gradle :run:rpm:halt -Pos=centos7 -Pwls=12.1.3.0.0 
-
-
-# 
 ```
 
+# Install multiple packages
 
-gradle :run:os:install -Pos=centos7 -Pwls=12.2.1.2.0 
-gradle :run:os:test:install -Pos=centos7 -Pwls=12.2.1.2.0
-gradle :run:weblogic:install -Pos=centos7 -Pwls=12.2.1.2.0
-gradle :run:weblogic:test:install -Pos=centos7 -Pwls=12.2.1.2.0
-gradle :run:rpm:create -Pos=centos7 -Pwls=12.2.1.2.0
-gradle :run:rpm:test:create -Pos=centos7 -Pwls=12.2.1.2.0
-gradle :run:os:halt -Pos=centos7 -Pwls=12.2.1.2.0
+```bash
+Update /etc/yum.conf
+installonlypkgs=fmw
 
+yum install /vagrant/fmw-12.2.1.2.0-1.x86_64.rpm 
 
-
-gradle :run:rpm:install -Pos=centos7 -Pwls=12.2.1.2.0
-gradle :run:rpm:test:install -Pos=centos7 -Pwls=12.2.1.2.0
-gradle :run:rpm:halt -Pos=centos7 -Pwls=12.2.1.2.0
-
+[root@weblogic-centos6-12 ~]# ls -l /opt/oracle/product/
+total 8
+drwxr-xr-x. 11 oracle oinstall 4096 Mar 28 01:01 fmw-12.2.1.2.0
+drwxr-xr-x. 10 oracle oinstall 4096 Mar 28 00:49 fmw-12.2.1.3.0
+```

@@ -11,6 +11,7 @@ AutoReqProv: no
 
 %define debug_package %{nil}
 %define __jar_repack %{nil}
+%define _unpackaged_files_terminate_build 0
 
 %description
 An rpm created by Panera Bread
@@ -19,12 +20,16 @@ An rpm created by Panera Bread
 %setup
 
 %build
+#mkdir -p $RPM_BUILD_ROOT/opt/oracle/product/%{name}-%{version}
+ln -s $RPM_BUILD_ROOT/opt/oracle/product/%{name}-%{version} /opt/oracle/middleware
 
 %install
-rm -rf ${RPM_BUILD_ROOT}
-mkdir -p $RPM_BUILD_ROOT/opt/oracle/product
-cp -R $RPM_BUILD_DIR/%{name}-%{version} $RPM_BUILD_ROOT/opt/oracle/product
-ln -s /opt/oracle/middleware /opt/oracle/product/fmw-@wls@
+rm -rf %{buildroot}
+mkdir -p %{buildroot}/opt/oracle/product
+cp -R $RPM_BUILD_DIR/%{name}-%{version} %{buildroot}/opt/oracle/product
+ln -sf /opt/oracle/product/%{name}-%{version} %{buildroot}/opt/oracle/middleware
+
+%post
 
 %clean
 # rm -rf ${RPM_BUILD_ROOT}
@@ -32,7 +37,10 @@ ln -s /opt/oracle/middleware /opt/oracle/product/fmw-@wls@
 %files
 %defattr(-,oracle,oinstall)
 /opt/oracle/product
+/opt/oracle/middleware
 
 %changelog
 * Fri Mar 23 2018 Koy Dooley <koy.dooley@panerabread.com>
 - Initial
+
+

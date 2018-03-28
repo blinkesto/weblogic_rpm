@@ -112,3 +112,4 @@ total 8
 drwxr-xr-x. 11 oracle oinstall 4096 Mar 28 01:01 fmw-12.2.1.2.0
 drwxr-xr-x. 10 oracle oinstall 4096 Mar 28 00:49 fmw-12.2.1.3.0
 ```
+

@@ -20,6 +20,7 @@
 - /opt/oracle/java is a symlink to /usr/java/default
 - Now we can upgrade/rollback by updating symlink and export JAVA_HOME not grepping 10 files (which might change for every patch) to look for "/opt/oracle/java/1.8.0.161" which has caused so many issues.  
 - Removed JDK dependency from weblogic rpm.  What purpose did that serve?
+- Can install multiple versions 
 
 # TODO
 

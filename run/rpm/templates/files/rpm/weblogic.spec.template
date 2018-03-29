@@ -39,7 +39,7 @@ cp -R \$RPM_BUILD_DIR/%{name}-%{version} %{buildroot}/opt/oracle/product
 #ln -sf /opt/oracle/product/%{name}-%{version} %{buildroot}/opt/oracle/middleware
 
 %post
-ln -sf /opt/oracle/product/%{name}-%{version} /opt/oracle/middleware
+ln -nsf /opt/oracle/product/%{name}-%{version} /opt/oracle/middleware
 
 %clean
 

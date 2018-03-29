@@ -1,0 +1,53 @@
+#!/bin/sh
+# nodemanager
+#
+# Below is the chkconfig syntax for auto startup at different run levels
+# Note runlevel 1 2 and 3, 69 is the Start order and 68 is the Stop order
+# Make sure these are unique by looking into /etc/rc.d/*
+# Also below is the description which is necessary.
+#
+# chkconfig: 123 69 68
+# description: Description of the Service
+#
+# Below is the source function library
+#
+. /etc/init.d/functions
+#
+if [ -f /etc/sysconfig/nodemanager ]; then
+. /etc/sysconfig/nodemanager
+fi
+#
+# Below is the Script Goodness controlling the service
+#
+
+RETVAL=0
+DOMAIN_PATH=/opt/oracle/domains/base_domain
+NM_USER=oracle
+
+case "$1" in
+    start)
+        echo -n "Start service nodemanager"
+        daemon --user $NM_USER "nohup $DOMAIN_PATH//bin/startNodeManager.sh > $DOMAIN_PATH/nodemanager/nodemanager.out 2> $DOMAIN_PATH/nodemanager/nodemanager.error" &
+        RETVAL=$?
+        ;;
+    stop)
+        echo -n "Stop service nodemanager"
+        if [ -f $DOMAIN_PATH/nodemanager/nodemanager.process.id ]; then
+        kill -9 `cat $DOMAIN_PATH/nodemanager/nodemanager.process.id`
+        fi
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    status)
+        status "$DOMAIN_PATH/bin/startNodeManager.sh"
+        RETVAL=$?
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac
+
+exit $RETVAL

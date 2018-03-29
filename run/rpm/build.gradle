@@ -20,7 +20,6 @@ task copy_rpm(type: Copy){
 }
 
 task install(type: Exec){
-    dependsOn copy_rpm
     def prop_path = PROJECT_ROOT + "/properties/$os/"
     def prop_file = "weblogic" + "$wls" + ".properties"
     def myProps = new Properties()
@@ -71,10 +70,22 @@ task create(type: Exec){
         def prop_file = "weblogic" + "$wls" + ".properties"
         def myProps = new Properties()
 
+        def name
+
+        switch(project.wls){
+            case ~ /^12\.1.*/:
+                name = "fmw-12cR1"
+                break
+            default:
+                name = "fmw-12cR2"
+                break
+        }
+
         file(prop_path + prop_file).withInputStream{
             myProps.load(it);
         }
         myProps.setProperty("wls", wls)
+        myProps.setProperty("name", name)
         myProps.stage_dir = STAGE_DIR
         myProps.os = os
         myProps.setProperty("install_type", taskName)
@@ -88,33 +99,14 @@ task create(type: Exec){
 
         from("$template_src"){
             include '*.template'
-            filter(ReplaceTokens, tokens: myProps)
+            // filter(ReplaceTokens, tokens: myProps)
+            expand(project: project, myProps: myProps)
             include 'files/rpm/*.template'
             rename('(.*).template', '$1')
         }
         into "$template_dest"
     }
 }
-
-//['rpm','jar'].each { taskName ->
-//    task "copy_binaries_$taskName" (type: Copy) {
-//        def template_dest = PROJECT_ROOT + "/build/$os/" + vm_name  + "$taskName/files"
-//        def prop_file = "weblogic" + "$wls" + ".properties"
-//        def prop_path = PROJECT_ROOT + "/properties/$os/"
-//        def myProps = new Properties()
-//
-//
-//        file(prop_path + prop_file).withInputStream{
-//            myProps.load(it);
-//        }
-//
-//        from(PROJECT_ROOT + '/files'){
-//            include "$myProps.jdk_rpm"
-//            include "$myProps.fmw_installer"
-//        }
-//        into template_dest
-//    }
-//}
 
 ['create','install'].each { taskName ->
     task "test_$taskName"(type: Exec) {

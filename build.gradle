@@ -105,3 +105,22 @@ subprojects {
         }
     }
 }
+
+task test_template (type: Copy){
+    def PROJECT_ROOT = rootProject.projectDir.toString()
+    def prop_file = "weblogic" + "$wls" + ".properties"
+    def prop_path = PROJECT_ROOT + "/properties/$os/"
+    def myProps = new Properties()
+
+
+    file(prop_path + prop_file).withInputStream {
+        myProps.load(it);
+    }
+
+    from("tmp/weblogic.spec.template"){
+        include 'weblogic.spec.template'
+        expand(project: project, myProps: myProps)
+        rename('(.*).template', '$1')
+    }
+    into "tmp/"
+}

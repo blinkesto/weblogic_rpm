@@ -21,7 +21,7 @@ sudo ln -s /usr/java/latest /opt/java/latest
 
 sudo -S -u oracle java -Xmx1024m  -jar $BINARIES_DIR/$FMW_INSTALLER -silent -responseFile $STAGE_DIR/weblogic/Response.rsp -invPtrLoc $STAGE_DIR/weblogic/oraInst.loc
 
-sudo ln -s $ORACLE_HOME /opt/oracle/middleware
+# sudo ln -s $ORACLE_HOME /opt/oracle/middleware
 
 sudo rm -rf /tmp/OraInstall*
 

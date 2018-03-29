@@ -1,9 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-VM_NAME = "weblogic-@os@-@wls@"
-VM_BOX = "@vm_box@"
-PROJECT_ROOT="@project_root@"
+VM_NAME = "weblogic-${project.os}-${project.wls}"
+VM_BOX = "${myProps.vm_box}"
+PROJECT_ROOT="${myProps.project_root}"
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # To enable dhcp go to Global Tools > vboxnet1 > DHCP Server > Enable
     config.vm.network 'private_network', type: "dhcp"
     config.vm.hostname = VM_NAME
-    config.vm.synced_folder PROJECT_ROOT + "/files", "@stage_dir@"
+    config.vm.synced_folder PROJECT_ROOT + "/files", "${myProps.stage_dir}"
     config.vm.synced_folder "../../../build", "/out"
 
 
@@ -32,7 +32,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # vb.customize [ "modifyvm", :id, "--groups" "/weblogic_rpm"]
     end
 
-    if "@install_type@" == "rpm"
+    if "${myProps.install_type}" == "rpm"
         config.vm.provision "shell", path: "files/rpm/install.sh"
     else
         config.vm.provision "shell", path: "files/rpm/create.sh"

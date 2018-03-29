@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe file('@oracle_home@'), :if => os[:family] == 'redhat' do
+describe file('@mw_path@/@mw_dir@'), :if => os[:family] == 'redhat' do
   it { should be_directory }
 end
 

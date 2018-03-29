@@ -1,13 +1,35 @@
+<%
+def name
+def dist
+
+switch(project.wls){
+    case ~ /^12\.1.*/:
+        name = "fmw-12cR1"
+        break
+    default:
+        name = "fmw-12cR2"
+        break
+}
+
+switch(project.os){
+    case ~ /centos6/:
+        dist = "el6"
+        break
+    default:
+        dist = "el7"
+        break
+}
+%>
 #!/bin/env bash
-JDK_RPM=@jdk_rpm@
-STAGE_DIR=@stage_dir@
+JDK_RPM=${myProps.jdk_rpm}
+STAGE_DIR=${myProps.stage_dir}
 
 REL=1
 
 sudo groupadd oinstall
 sudo useradd -g oinstall oracle
 
-sudo rpm -Uvh $STAGE_DIR/$JDK_RPM
+sudo rpm -Uvh \$STAGE_DIR/\$JDK_RPM
 sudo ln -s /usr/java/latest /opt/java
 
-sudo yum -y install /vagrant/fmw-@wls@-1.x86_64.rpm
+sudo yum -y install /vagrant/${name}-${project.wls}-1.${dist}.x86_64.rpm

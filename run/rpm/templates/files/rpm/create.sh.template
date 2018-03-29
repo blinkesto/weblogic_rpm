@@ -1,11 +1,11 @@
 #!/bin/env bash
 
 BUILD_USER=oracle
-RPMBUILD_DIR=/home/$BUILD_USER/rpmbuild
+RPMBUILD_DIR=/home/\$BUILD_USER/rpmbuild
 OUT_DIR=/vagrant
-RPM_FILE=fmw-@wls@-1.x86_64.rpm
+RPM_FILE=fmw-${project.wls}-1.x86_64.rpm
 FILES_DIR=/vagrant/files/rpm
 
 sudo yum install -y rpm-build
-sudo -u oracle sh $FILES_DIR/buildrpm.sh
-cp $RPMBUILD_DIR/RPMS/x86_64/$RPM_FILE $OUT_DIR/$RPM_FILE
+sudo -u oracle sh \$FILES_DIR/buildrpm.sh
+cp \$RPMBUILD_DIR/RPMS/x86_64/*rpm \$OUT_DIR/

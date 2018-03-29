@@ -1,15 +1,25 @@
+<%
+def name
+switch(project.wls){
+    case ~ /^12\.1.*/:
+        name = "fmw-12cR1"
+        break
+    default:
+        name = "fmw-12cR2"
+        break
+}
+%>
 #!/bin/env bash
 
 REL=1
 
 BUILD_USER=oracle
-RPMBUILD_DIR=/home/$BUILD_USER/rpmbuild
+RPMBUILD_DIR=/home/\$BUILD_USER/rpmbuild
 FILES_DIR=/vagrant/files/rpm
 OUT_DIR=/out/
 
-mkdir -p $RPMBUILD_DIR/{SPECS,SOURCES}
-cp $FILES_DIR/weblogic.spec $RPMBUILD_DIR/SPECS/weblogic.spec
+mkdir -p \$RPMBUILD_DIR/{SPECS,SOURCES}
+cp \$FILES_DIR/weblogic.spec \$RPMBUILD_DIR/SPECS/weblogic.spec
 cd /opt/oracle/product/
-tar czf $RPMBUILD_DIR/SOURCES/fmw-@wls@.tgz fmw-@wls@
-rpmbuild -bb $RPMBUILD_DIR/SPECS/weblogic.spec
-# cp $RPMBUILD_DIR/RPMS/x86_64/fmw-@wls@-1.x86_64.rpm /out/@os@/fmw-@wls@-1.x86_64.rpm
+tar czf \$RPMBUILD_DIR/SOURCES/${myProps.mw_dir}.tgz ${myProps.mw_dir}
+rpmbuild -bb \$RPMBUILD_DIR/SPECS/weblogic.spec

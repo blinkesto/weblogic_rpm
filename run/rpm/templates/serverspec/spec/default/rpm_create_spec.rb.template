@@ -1,6 +1,18 @@
+<%
+def name
+
+switch(project.wls){
+    case ~ /^12\.1.*/:
+        name = "fmw-12cR1"
+        break
+    default:
+        name = "fmw-12cR2"
+        break
+}
+%>
 require 'spec_helper'
 
-describe file('/vagrant/fmw-@wls@-1.x86_64.rpm'), :if => os[:family] == 'redhat' do
+describe file('/vagrant/${name}-${project.wls}-1.${dist}.x86_64.rpm'), :if => os[:family] == 'redhat' do
   it { should be_file }
 end
 

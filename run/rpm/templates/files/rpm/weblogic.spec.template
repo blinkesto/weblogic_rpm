@@ -1,11 +1,22 @@
-Summary: fmw
-Name: fmw
-Version: @wls@
-Release: 1
+<%
+def name
+switch(project.wls){
+    case ~ /^12\.1.*/:
+        name = "fmw-12cR1"
+        break
+    default:
+        name = "fmw-12cR2"
+        break
+}
+%>
+Summary: ${name}
+Name: ${name}
+Version: ${project.wls}
+Release: 1%{?dist}
 URL:     http://panerabread.com
 License: GPL
 BuildRoot: %{_tmppath}/%{name}-root
-Source0: fmw-@wls@.tgz
+Source0: %{name}-%{version}.tgz
 BuildArch: x86_64
 AutoReqProv: no
 
@@ -20,23 +31,22 @@ An rpm created by Panera Bread
 %setup
 
 %build
-ln -s $RPM_BUILD_ROOT/opt/oracle/product/%{name}-%{version} /opt/oracle/middleware
 
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/opt/oracle/product
-cp -R $RPM_BUILD_DIR/%{name}-%{version} %{buildroot}/opt/oracle/product
-ln -sf /opt/oracle/product/%{name}-%{version} %{buildroot}/opt/oracle/middleware
+cp -R \$RPM_BUILD_DIR/%{name}-%{version} %{buildroot}/opt/oracle/product
+#ln -sf /opt/oracle/product/%{name}-%{version} %{buildroot}/opt/oracle/middleware
 
 %post
+ln -sf /opt/oracle/product/%{name}-%{version} /opt/oracle/middleware
 
 %clean
-# rm -rf ${RPM_BUILD_ROOT}
 
 %files
 %defattr(-,oracle,oinstall)
 /opt/oracle/product
-/opt/oracle/middleware
+#/opt/oracle/middleware
 
 %changelog
 * Fri Mar 23 2018 Koy Dooley <koy.dooley@panerabread.com>

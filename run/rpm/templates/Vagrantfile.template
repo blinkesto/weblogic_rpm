@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-VM_NAME = "weblogic-${project.os}-${project.wls}"
+VM_NAME = "${myProps.vm_name}"
 VM_BOX = "${myProps.vm_box}"
 PROJECT_ROOT="${myProps.project_root}"
 

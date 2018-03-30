@@ -2,7 +2,7 @@
 
 ```bash
 # Install OS
-gradle :run:os:install      -Pos=centos6 -Pwls=12.1.3.0.0 
+gradle :run:os:install      -Pos=centos7 -Pwls=12.1.3.0.0 
 gradle :run:os:test:install -Pos=centos6 -Pwls=12.1.3.0.0 
 
 # Install Weblogic

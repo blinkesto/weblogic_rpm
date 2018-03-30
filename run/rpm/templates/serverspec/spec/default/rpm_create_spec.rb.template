@@ -1,5 +1,6 @@
 <%
 def name
+def dist
 
 switch(project.wls){
     case ~ /^12\.1.*/:
@@ -8,6 +9,15 @@ switch(project.wls){
     default:
         name = "fmw-12cR2"
         break
+}
+
+switch(project.os){
+    case ~ /centos6/:
+        dist = "el6"
+        break
+    default:
+        dist = "el7"
+    break
 }
 %>
 require 'spec_helper'

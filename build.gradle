@@ -60,15 +60,16 @@ subprojects {
 
             def template_dest = PROJECT_ROOT + "/build/$os/" + vm_name
             from(template_src) {
-                include '*.template'
+                include 'Rakefile.template'
                 include 'spec/*.template'
                 include 'spec/default/*.template'
-                filter(ReplaceTokens, tokens: myProps)
+                expand(project: project, myProps: myProps)
                 rename('(.*).template', '$1')
             }
             into template_dest
         }
     }
+
     ['rpm', 'jar'].each { taskName ->
         task "test_$taskName"(type: Exec) {
             def prop_file = "weblogic" + "$wls" + ".properties"
@@ -123,4 +124,10 @@ task test_template (type: Copy){
         rename('(.*).template', '$1')
     }
     into "tmp/"
+}
+
+task print_project(){
+    doLast{
+        println name
+    }
 }

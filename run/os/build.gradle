@@ -78,7 +78,7 @@ task copy_templates(type: Copy){
     from("$template_src"){
         include '*.template'
         include 'files/os/*.template'
-        filter(ReplaceTokens, tokens: myProps)
+        expand(project: project, myProps: myProps)
         rename('(.*).template', '$1')
     }
     into "$template_dest"

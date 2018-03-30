@@ -9,6 +9,10 @@ switch(project.wls){
         break
 }
 %>
+# https://cstan.io/?p=8946&lang=en
+%if 0%{?rhel} == 7
+%define dist .el7
+%endif
 Summary: ${name}
 Name: ${name}
 Version: ${project.wls}

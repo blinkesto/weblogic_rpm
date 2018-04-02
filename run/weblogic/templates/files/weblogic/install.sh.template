@@ -1,7 +1,6 @@
 #!/bin/env bash
 
 FMW_INSTALLER=${myProps.fmw_installer}
-ORACLE_HOME=${myProps.oracle_home}
 BINARIES_DIR=${myProps.stage_dir}
 JDK_RPM=${myProps.jdk_rpm}
 STAGE_DIR=/vagrant/files

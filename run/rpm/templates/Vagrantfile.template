@@ -18,7 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network 'private_network', type: "dhcp"
     config.vm.hostname = VM_NAME
     config.vm.synced_folder PROJECT_ROOT + "/files", "${myProps.stage_dir}"
-    config.vm.synced_folder "../../../build", "/out"
+    config.vm.synced_folder "../../../out", "/out"
 
 
     config.vm.provider :virtualbox do |vb|

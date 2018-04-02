@@ -45,7 +45,26 @@ task halt(type: Exec){
     workingDir PROJECT_ROOT + "/build/$os/" + myProps.vm_name
 
     //
-    commandLine 'vagrant', 'halt'
+    commandLine 'vagrant', 'halt', '-f'
+}
+
+task destroy(type: Exec){
+    def prop_path = PROJECT_ROOT + "/properties/$os/"
+    def prop_file = "weblogic" + "$wls" + ".properties"
+
+    file(prop_path + prop_file).withInputStream{
+        myProps.load(it);
+    }
+
+    // Update vm_name
+    myProps.install_type = "jar"
+    myProps.setProperty("vm_name", vm_name + myProps.install_type )
+
+    dependsOn "copy_templates"
+    workingDir PROJECT_ROOT + "/build/$os/" + myProps.vm_name
+
+    //
+    commandLine 'vagrant', 'destroy', '-f'
 }
 
 task provision(type: Exec){

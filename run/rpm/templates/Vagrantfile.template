@@ -20,7 +20,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.synced_folder PROJECT_ROOT + "/files", "${myProps.stage_dir}"
     config.vm.synced_folder PROJECT_ROOT + "/out", "/out"
 
-
     config.vm.provider :virtualbox do |vb|
     vb.name = VM_NAME
 

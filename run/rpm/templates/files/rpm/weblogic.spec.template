@@ -51,7 +51,6 @@ ln -nsf /opt/oracle/product/%{name}-%{version} /opt/oracle/middleware
 %defattr(-,oracle,oinstall)
 /opt/oracle/product
 
-
 %changelog
 * Fri Mar 23 2018 Koy Dooley <koy.dooley@panerabread.com>
 - Initial

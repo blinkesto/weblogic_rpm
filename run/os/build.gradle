@@ -5,6 +5,22 @@ def myProps = new Properties()
 def PROJECT_ROOT=rootProject.projectDir.toString()
 def vm_name = "weblogic-$os-$wls"
 
+def prop_path = PROJECT_ROOT + "/properties/$os/"
+def prop_file = "weblogic" + "$wls" + ".properties"
+
+file(prop_path + prop_file).withInputStream{
+    myProps.load(it);
+}
+
+// Update vm_name
+myProps.install_type = "jar"
+myProps.vm_name = vm_name + myProps.install_type
+myProps.os = os
+myProps.project_root = PROJECT_ROOT
+
+def WORKING_DIR =  PROJECT_ROOT + "/build/$os/" + myProps.vm_name
+
+
 task help(){
     doLast {
         println rootProject.projectDir
@@ -12,38 +28,15 @@ task help(){
 }
 
 task install(type: Exec){
-    def prop_path = PROJECT_ROOT + "/properties/$os/"
-    def prop_file = "weblogic" + "$wls" + ".properties"
-
-    file(prop_path + prop_file).withInputStream{
-        myProps.load(it);
-    }
-
-    // Update vm_name
-    myProps.install_type = "jar"
-    myProps.setProperty("vm_name", vm_name + myProps.install_type )
     dependsOn "copy_templates"
-    workingDir PROJECT_ROOT + "/build/$os/" + myProps.vm_name
-
+    workingDir WORKING_DIR
     //
     commandLine 'vagrant', 'up'
 }
 
 task halt(type: Exec){
-    def prop_path = PROJECT_ROOT + "/properties/$os/"
-    def prop_file = "weblogic" + "$wls" + ".properties"
-
-    file(prop_path + prop_file).withInputStream{
-        myProps.load(it);
-    }
-
-    // Update vm_name
-    myProps.install_type = "jar"
-    myProps.setProperty("vm_name", vm_name + myProps.install_type )
-
     dependsOn "copy_templates"
-    workingDir PROJECT_ROOT + "/build/$os/" + myProps.vm_name
-
+    workingDir WORKING_DIR
     //
     commandLine 'vagrant', 'halt', '-f'
 }
@@ -68,31 +61,15 @@ task destroy(type: Exec){
 }
 
 task provision(type: Exec){
-    def prop_path = PROJECT_ROOT + "/properties/$os/"
-    def prop_file = "weblogic" + "$wls" + ".properties"
-
-    file(prop_path + prop_file).withInputStream{
-        myProps.load(it);
-    }
-
-    // Update vm_name
-    myProps.install_type = "jar"
-    myProps.setProperty("vm_name", vm_name + myProps.install_type )
-
     dependsOn "copy_templates"
-    workingDir PROJECT_ROOT + "/build/$os/" + myProps.vm_name
-
+    workingDir WORKING_DIR
     //
     commandLine 'vagrant', 'provision'
 }
 
 task copy_templates(type: Copy){
-    def template_dest = PROJECT_ROOT + "/build/$os/" + myProps.vm_name
+    def template_dest = WORKING_DIR
     def template_src = "templates"
-
-    myProps.os = os
-    myProps.project_root = PROJECT_ROOT
-    println "Copy from $template_src into $template_dest"
 
     from("$template_src"){
         include '*.template'
@@ -102,6 +79,3 @@ task copy_templates(type: Copy){
     }
     into "$template_dest"
 }
-
-
-

@@ -118,16 +118,12 @@ task test_template (type: Copy){
         myProps.load(it);
     }
 
-    from("tmp/weblogic.spec.template"){
-        include 'weblogic.spec.template'
-        expand(project: project, myProps: myProps)
-        rename('(.*).template', '$1')
-    }
-    into "tmp/"
-}
-
-task print_project(){
-    doLast{
-        println name
+    doLast {
+        from("tmp/weblogic.spec.template"){
+            include 'weblogic.spec.template'
+            expand(project: project, myProps: myProps)
+            rename('(.*).template', '$1')
+        }
+        into "tmp/"
     }
 }

@@ -32,6 +32,7 @@ AutoReqProv: no
 An rpm created by Panera Bread
 
 %prep
+
 %setup
 
 %build
@@ -40,7 +41,6 @@ An rpm created by Panera Bread
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/opt/oracle/product
 cp -R \$RPM_BUILD_DIR/%{name}-%{version} %{buildroot}/opt/oracle/product
-#ln -sf /opt/oracle/product/%{name}-%{version} %{buildroot}/opt/oracle/middleware
 
 %post
 ln -nsf /opt/oracle/product/%{name}-%{version} /opt/oracle/middleware
@@ -50,7 +50,7 @@ ln -nsf /opt/oracle/product/%{name}-%{version} /opt/oracle/middleware
 %files
 %defattr(-,oracle,oinstall)
 /opt/oracle/product
-#/opt/oracle/middleware
+
 
 %changelog
 * Fri Mar 23 2018 Koy Dooley <koy.dooley@panerabread.com>

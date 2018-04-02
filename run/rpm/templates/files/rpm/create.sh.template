@@ -2,7 +2,7 @@
 
 BUILD_USER=oracle
 RPMBUILD_DIR=/home/\$BUILD_USER/rpmbuild
-OUT_DIR=/vagrant
+OUT_DIR=/out
 RPM_FILE=fmw-${project.wls}-1.x86_64.rpm
 FILES_DIR=/vagrant/files/rpm
 

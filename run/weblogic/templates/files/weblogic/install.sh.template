@@ -18,7 +18,11 @@ sudo chown -R oracle:oinstall /opt/oracle
 sudo rpm -Uvh \$BINARIES_DIR/\$JDK_RPM
 sudo ln -s /usr/java/latest /opt/java/latest
 
-sudo -S -u oracle java -Xmx1024m  -jar \$BINARIES_DIR/\$FMW_INSTALLER -silent -responseFile \$STAGE_DIR/weblogic/Response.rsp -invPtrLoc \$STAGE_DIR/weblogic/oraInst.loc
+if [[ \$FMW_INSTALLER == fmw* ]]; then
+    sudo -S -u oracle java -Xmx1024m  -jar \$BINARIES_DIR/\$FMW_INSTALLER -silent -responseFile \$STAGE_DIR/weblogic/Response.rsp -invPtrLoc \$STAGE_DIR/weblogic/oraInst.loc
+else
+    sudo -S -u oracle java -Xmx1024m  -jar \$BINARIES_DIR/\$FMW_INSTALLER -mode=silent -silent_xml=\$STAGE_DIR/weblogic/silent.xml
+fi
 
 sudo rm -rf /tmp/OraInstall*
 

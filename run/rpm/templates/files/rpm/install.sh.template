@@ -26,6 +26,10 @@ STAGE_DIR=${myProps.stage_dir}
 
 REL=1
 
+sudo yum install -y rng-tools
+sudo service rngd start
+sudo chkconfig rngd on
+
 sudo groupadd oinstall
 sudo useradd -g oinstall oracle
 

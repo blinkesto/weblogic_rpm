@@ -27,4 +27,4 @@
 remove from properties
 mw_dir=fmw-12cR1-12.1.3.0.0
 mw_path=/opt/oracle/product
-determine method to test truststore when new certs are added
+determine method to test truststore when new certs added

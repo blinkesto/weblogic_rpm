@@ -12,15 +12,18 @@ sudo chkconfig rngd on
 sudo groupadd oinstall
 sudo useradd -g oinstall oracle
 
-sudo mkdir -p /opt/oracle/oraInventory
-sudo chown -R oracle:oinstall /opt/oracle
+sudo mkdir -p ${myProps.mw_path}
+sudo chown -R oracle:oinstall ${myProps.oracle_home}
 
 sudo rpm -Uvh \$BINARIES_DIR/\$JDK_RPM
 sudo ln -s /usr/java/latest /opt/java/latest
 
+usermod -G oinstall ansible
+
 if [[ \$FMW_INSTALLER == fmw* ]]; then
     sudo -S -u oracle java -Xmx1024m  -jar \$BINARIES_DIR/\$FMW_INSTALLER -silent -responseFile \$STAGE_DIR/weblogic/Response.rsp -invPtrLoc \$STAGE_DIR/weblogic/oraInst.loc
 else
+
     sudo -S -u oracle java -Xmx1024m  -jar \$BINARIES_DIR/\$FMW_INSTALLER -mode=silent -silent_xml=\$STAGE_DIR/weblogic/silent.xml
 fi
 

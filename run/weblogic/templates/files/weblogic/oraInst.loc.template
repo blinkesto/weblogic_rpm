@@ -1,2 +1,2 @@
-inventory_loc=/opt/oracle/oraInventory
+inventory_loc=${myProps.oracle_home}/oraInventory
 inst_group=oinstall

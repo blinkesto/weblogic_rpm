@@ -12,7 +12,7 @@
 
 ```
 
-# IMPOROVEMENTS
+# IMPROVEMENTS
 - Now we can create RPMs for both OS versions and 3 WLS versions 
 - MW_HOME is now /opt/oracle/product/fmw-version.  /opt/oracle/middleware is a symlink to that.
 - Now we can upgrade/rollback by updating the symlink.

@@ -13,7 +13,7 @@ sudo groupadd oinstall
 sudo useradd -g oinstall oracle
 
 sudo mkdir -p ${myProps.mw_path}
-sudo chown -R oracle:oinstall ${myProps.mw_path}
+sudo chown -R oracle:oinstall ${myProps.oracle_home}
 
 sudo rpm -Uvh \$BINARIES_DIR/\$JDK_RPM
 sudo ln -s /usr/java/latest /opt/java/latest

@@ -1,8 +1,16 @@
 #!/usr/bin/python
 import argparse, sys, ConfigParser, socket, subprocess
 
+###############################################################################
+# This file runs the gradle commands listed in docs/gradle.md for each OS/WLS
+# combination.
+#
+###############################################################################
+
 os_list=['centos7', 'centos6']
 wls_list=['12.1.3.0.0','12.2.1.2.0','12.2.1.3.0']
+
+# List of options for running gradle to setup VM and create RPM
 gradle_setup_list=[
     ':run:os:install',
     ':run:os:test:install',
@@ -13,6 +21,7 @@ gradle_setup_list=[
     ':run:os:halt'
 ]
 
+# List of options for running gradle to setup VM and install RPM
 gradle_install_list=[
     ':run:rpm:install',
     ':run:rpm:test:install',
@@ -23,7 +32,7 @@ Config = ConfigParser.ConfigParser()
 
 def info(args):
     print("Usage:")
-    print("./weblogic_rpm.py create  --os=%s --wls=%s" % (os_list, wls_list))
+    print("./weblogic_rpm.py create --os=%s --wls=%s" % (os_list, wls_list))
 
 
 def run(args):

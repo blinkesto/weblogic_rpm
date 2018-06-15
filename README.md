@@ -1,5 +1,9 @@
 # weblogic_rpm
 
+#SETUP
+See docs/setup.md
+
+
 # USAGE
 ```bash
 # Install OS

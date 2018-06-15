@@ -23,4 +23,4 @@ gradle :run:rpm:halt         -Pos=centos6 -Pwls=12.1.3.0.0
 ```
 
 
-gradle :run:os:copy_templates      -Pos=centos6 -Pwls=12.1.3.0.0 
+gradle :run:os:copy_templates      -Pos=centos6 -Pwls=12.1.3.0.0

@@ -1,5 +1,3 @@
-# weblogic_rpm
-
 #SETUP
 See docs/setup.md
 
@@ -45,6 +43,6 @@ gradle :run:rpm:halt -Pos=centos6 -Pwls=12.1.3.0.0
 - determine method to test truststore when new certs added
 - Create Java RPMs 
 
-=======
+
 
 

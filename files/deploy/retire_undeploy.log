@@ -1,0 +1,61 @@
+Connecting to t3://192.168.56.3:7001 with userid weblogic ...
+Successfully connected to Admin Server "AdminServer" that belongs to domain "base_domain".
+
+Warning: An insecure protocol was used to connect to the 
+server. To ensure on-the-wire security, the SSL port or 
+Admin port should be used instead.
+dr--   jolokia-war-1.5.0
+dr--   simple#v1
+dr--   simple#v2
+dr--   test_war#1.1-SNAPSHOT
+
+Location changed to serverRuntime tree. This is a read-only tree with DomainMBean as the root. 
+For more help, use help('domainConfig')
+
+dr--   instance1
+dr--   instance2
+dr--   instance3
+
+Location changed to domainRuntime tree. This is a read-only tree with DomainMBean as the root. 
+For more help, use help('domainRuntime')
+
+
+dr--   dc1
+
+
+Location changed to edit tree. This is a writable tree with 
+DomainMBean as the root. To make changes you will need to start 
+an edit session via startEdit(). 
+
+For more help, use help('edit')
+
+Starting an edit session ...
+Started edit session, please be sure to save and activate your 
+changes once you are done.
+Stopping application simple#v1.
+You have an edit session in progress, hence WLST will not
+ block for your stopApplication to complete.
+Stopped the Application. Please refer to the returned WLSTProgress object or variable LAST to track the status.
+Undeploying application simple#v1 ...
+You have an edit session in progress, hence WLST will not
+ block for your undeployment to complete.
+Started the undeployment of Application. Please refer to the returned WLSTProgress object or variable LAST to track the status.
+Saving all your changes ...
+Saved all your changes successfully.
+Started the activation of all your changes. The edit lock 
+associated with this edit session is released once the 
+activation is completed.
+The Activation task for your changes is assigned to the variable 'activationTask'. 
+You can call the getUser(), getStatusByServer() or 
+getDetails() methods on this variable to determine the status of 
+your activation.
+
+Already in Domain Config Tree
+
+dr--   dc1
+
+
+
+dr--   dc1
+
+

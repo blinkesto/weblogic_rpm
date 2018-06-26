@@ -20,7 +20,7 @@ RPM will be at PROJECT_ROOT/out/
 ## Create VM used to test RPM install and install the RPM
 ```bash
 # Install RPM 
-gradle :run:rpm:install -Pos=centos6 -Pwls=12.1.3.0.0
+gradle :run:rpm:install -Pos=centos7 -Pwls=12.1.3.0.0
 
 # Stop VM
 gradle :run:rpm:halt -Pos=centos6 -Pwls=12.1.3.0.0

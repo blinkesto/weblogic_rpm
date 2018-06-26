@@ -1,0 +1,12 @@
+---
+- hosts: all
+  gather_facts: false
+
+  tasks:
+
+    - name: Deploy
+      shell: "/opt/oracle/deploy/deploy3.sh"
+      become: yes
+      become_user: oracle
+
+

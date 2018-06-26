@@ -1,4 +1,5 @@
-#SETUP
+# SETUP
+
 See docs/setup.md
 
 
@@ -38,7 +39,6 @@ gradle :run:rpm:halt -Pos=centos6 -Pwls=12.1.3.0.0
 - Can install multiple versions on the same VM
 
 # TODO
-- Installation location is not easily updateable
 - Fix the tests
 - determine method to test truststore when new certs added
 - Create Java RPMs 

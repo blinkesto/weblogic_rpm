@@ -4,10 +4,10 @@ def dist
 
 switch(project.wls){
     case ~ /^12\.1.*/:
-        name = "fmw-12cR1"
+        name = "${myProps.rpm_name}"
         break
     default:
-        name = "fmw-12cR2"
+        name = "${myProps.rpm_name}"
         break
 }
 

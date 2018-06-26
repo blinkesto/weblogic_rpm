@@ -1,7 +1,7 @@
 print 'Creating the domain...'
 domainsDirectory = '/opt/oracle/domains';
-domainName = 'base_domain';
-readTemplate('/opt/oracle/middleware/wlserver/common/templates/wls/wls.jar');
+domainName = '${myProps.domain_name}';
+readTemplate('${myProps.mw_path}/${myProps.mw_dir}/wlserver/common/templates/wls/wls.jar');
 
 # Setting listen address/port
 cd('/Server/AdminServer')

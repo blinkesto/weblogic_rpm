@@ -2,10 +2,10 @@
 def name
 switch(project.wls){
     case ~ /^12\.1.*/:
-        name = "fmw-12cR1"
+        name = "${myProps.rpm_name}"
         break
     default:
-        name = "fmw-12cR2"
+        name = "${myProps.rpm_name}"
         break
 }
 %>
@@ -15,7 +15,7 @@ switch(project.wls){
 %endif
 Summary: ${name}
 Name: ${name}
-Version: ${project.wls}
+Version: ${myProps.rpm_version}
 Release: 1%{?dist}
 URL:     http://panerabread.com
 License: GPL

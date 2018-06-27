@@ -28,6 +28,12 @@ gradle :run:rpm:halt -Pos=centos6 -Pwls=12.1.3.0.0
 
 ```
 
+# TODO
+- Fix the tests
+- determine method to test truststore when new certs added
+- Create Java RPMs? 
+
+
 # IMPROVEMENTS
 - Can create RPMs for both OS versions and 3 WLS versions 
 - MW_HOME is now /opt/oracle/product/fmw-version.  /opt/oracle/middleware is a symlink to that.
@@ -38,10 +44,6 @@ gradle :run:rpm:halt -Pos=centos6 -Pwls=12.1.3.0.0
 - Removed JDK dependency from weblogic rpm.  What purpose did that serve?
 - Can install multiple versions on the same VM
 
-# TODO
-- Fix the tests
-- determine method to test truststore when new certs added
-- Create Java RPMs 
 
 
 

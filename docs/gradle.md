@@ -48,8 +48,8 @@ gradle :run:rpm:install -Pos=centos7 -Pwls=12.2.1.3.0
 gradle :run:weblogic:copy_templates -Pos=centos7  -Pwls=12.2.1.2.0
 ```
 
-gradle :run:os:install -Pos=centos6 -Pwls=10.3.6.0.0
-gradle :run:weblogic:install -Pos=centos6 -Pwls=10.3.6.0.0
-gradle :run:rpm:create -Pos=centos6 -Pwls=10.3.6.0.0
-gradle :run:rpm:install -Pos=centos6 -Pwls=10.3.6.0.0
+gradle :run:os:install -Pos=centos6 -Pwls=12.2.1.3.0
+gradle :run:weblogic:install -Pos=centos6 -Pwls=12.2.1.3.0
+gradle :run:rpm:create -Pos=centos6 -Pwls=12.2.1.3.0
+gradle :run:rpm:install -Pos=centos6 -Pwls=12.2.1.3.0
 

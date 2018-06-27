@@ -13,7 +13,6 @@ wls_list=['12.1.3.0.0','12.2.1.2.0','12.2.1.3.0']
 # List of options for running gradle to setup VM and create RPM
 gradle_setup_list=[
     ':run:os:install',
-    ':run:os:test:install',
     ':run:weblogic:install',
     ':run:weblogic:test:install',
     ':run:rpm:create',

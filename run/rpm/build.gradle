@@ -4,7 +4,7 @@ defaultTasks 'create'
 
 def STAGE_DIR = "/mnt/files"
 def PROJECT_ROOT=rootProject.projectDir.toString()
-def vm_name = "weblogic-$os-$wls"
+def vm_name = "weblogic-$os-$wls".replace('.', '-')
 
 
 task create_rpm(type: Exec){
@@ -60,7 +60,23 @@ task halt(type: Exec){
     commandLine 'vagrant', 'halt'
 }
 
+task destroy(type: Exec){
+    def prop_path = PROJECT_ROOT + "/properties/$os/"
+    def prop_file = "weblogic" + "$wls" + ".properties"
+    def myProps = new Properties()
 
+    file(prop_path + prop_file).withInputStream{
+        myProps.load(it);
+    }
+    // Update vm_name
+    myProps.install_type = "rpm"
+    myProps.setProperty("vm_name", vm_name + myProps.install_type )
+
+    workingDir PROJECT_ROOT + "/build/$os/" + myProps.vm_name
+
+    //
+    commandLine 'vagrant', 'destroy', '-f'
+}
 
 ['rpm','jar'].each { taskName ->
     task "copy_templates_$taskName"(type: Copy){

@@ -1,3 +1,0 @@
-connect('weblogic','bread4all','t3://192.168.56.4:7001')
-deploy(appName='simple', path='/opt/oracle/deploy/test_war.war', targets="dc1")
-

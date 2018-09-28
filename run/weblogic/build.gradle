@@ -2,9 +2,11 @@ apply plugin: 'idea'
 
 import org.apache.tools.ant.filters.ReplaceTokens
 def myProps = new Properties()
-def STAGE_DIR = "/mnt/files"
 def PROJECT_ROOT=rootProject.projectDir.toString()
-def vm_name = "weblogic-$os-$wls".replace('.', '-')
+
+
+
+
 
 task help(){
     doLast {
@@ -15,6 +17,7 @@ task help(){
 task install(type: Exec){
     def prop_path = PROJECT_ROOT + "/properties/$os/"
     def prop_file = "weblogic" + "$wls" + ".properties"
+    def vm_name = "weblogic-$os-$wls".replace('.', '-')
 
     file(prop_path + prop_file).withInputStream{
         myProps.load(it);
@@ -27,8 +30,8 @@ task install(type: Exec){
     dependsOn "copy_templates", "copy_serverspec_jar"
     workingDir PROJECT_ROOT + "/build/$os/" + myProps.vm_name
 
-    //
     commandLine 'vagrant', 'provision'
+    // commandLine '/bin/echo'
 }
 
 // Usage: gradle :run:weblogic:copy_templates -Pos=centos7 -Pwls=12.1.3.0.0

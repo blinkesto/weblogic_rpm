@@ -35,6 +35,7 @@ subprojects {
     version = '1.0'
     def PROJECT_ROOT = rootProject.projectDir.toString()
 
+
     ['rpm', 'jar'].each { taskName ->
         taskName
         task "copy_serverspec_$taskName"(type: Copy) {
@@ -44,7 +45,7 @@ subprojects {
             def prop_path = PROJECT_ROOT + "/properties/$os/"
             def prop_file = "weblogic" + "$wls" + ".properties"
 
-            def vm_name = "weblogic-$os-$wls" + taskName
+            def vm_name = "weblogic-$os-$wls".replace('.', '-')
 
             file(prop_path + prop_file).withInputStream {
                 myProps.load(it);
@@ -54,12 +55,15 @@ subprojects {
             myProps.wls = wls
             myProps.vm_name = vm_name
 
-            if (taskName == "jar")
+            if (taskName == "jar") {
                 myProps.task_name = "create"
+                myProps.install_type = "jar"
+                myProps.setProperty("vm_name", vm_name + myProps.install_type)
+            }
             else
                 myProps.task_name = "install"
 
-            def template_dest = PROJECT_ROOT + "/build/$os/" + vm_name
+            def template_dest = PROJECT_ROOT + "/build/$os/" + myProps.vm_name
             from(template_src) {
                 include 'Rakefile.template'
                 include 'spec/*.template'

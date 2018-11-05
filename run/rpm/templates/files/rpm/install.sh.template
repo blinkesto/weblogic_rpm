@@ -36,4 +36,4 @@ sudo useradd -g oinstall oracle
 sudo rpm -Uvh \$STAGE_DIR/\$JDK_RPM
 sudo ln -s /usr/java/latest /opt/java
 
-sudo yum -y install /out/${name}-${project.wls}-1.${dist}.x86_64.rpm
+sudo yum -y install /out/${myProps.rpm_name}-${myProps.rpm_version}-1.${dist}.x86_64.rpm

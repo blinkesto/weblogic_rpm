@@ -20,6 +20,6 @@ OUT_DIR=/out/
 
 mkdir -p \$RPMBUILD_DIR/{SPECS,SOURCES}
 cp \$FILES_DIR/weblogic.spec \$RPMBUILD_DIR/SPECS/weblogic.spec
-cd /opt/oracle/product/
+cd ${myProps.mw_path}
 tar czf \$RPMBUILD_DIR/SOURCES/${myProps.mw_dir}.tgz ${myProps.mw_dir}
 rpmbuild -bb \$RPMBUILD_DIR/SPECS/weblogic.spec

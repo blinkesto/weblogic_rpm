@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# vm_name is set in each build.gradle at the top.
 VM_NAME = "${myProps.vm_name}"
 VM_BOX = "${myProps.vm_box}"
 PROJECT_ROOT="${myProps.project_root}"

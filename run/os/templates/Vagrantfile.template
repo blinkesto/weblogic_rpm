@@ -25,11 +25,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.name = VM_NAME
 
         vb.customize [ "modifyvm", :id, "--natdnshostresolver1", "on"]
-            vb.customize [ "modifyvm", :id, "--natdnsproxy1", "on"]
-            vb.customize [ "modifyvm", :id, "--nic2", "hostonly", "--hostonlyadapter2", "vboxnet1"]
-            vb.customize [ "modifyvm", :id, "--memory", 1024]
-            vb.customize [ "modifyvm", :id, "--cpus", 2]
-            # vb.customize [ "modifyvm", :id, "--groups", "/weblogic_rpm"]
+        vb.customize [ "modifyvm", :id, "--natdnsproxy1", "on"]
+        vb.customize [ "modifyvm", :id, "--nic2", "hostonly", "--hostonlyadapter2", "vboxnet1"]
+        vb.customize [ "modifyvm", :id, "--memory", 1024]
+        vb.customize [ "modifyvm", :id, "--cpus", 2]
+        # vb.customize [ "modifyvm", :id, "--groups", "/weblogic_rpm"]
     end
 
     config.vm.provision "shell", path: "files/os/install.sh"
